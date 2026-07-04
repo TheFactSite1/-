@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Камиль Хайсаров</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Меню */
+        nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid #ff4d4d;
+        }
+
+        nav button {
+            background: #e63946;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        nav button:hover {
+            background: #c1121f;
+            transform: scale(1.05);
+        }
+
+        .section {
+            display: none;
+            flex: 1;
+            padding: 40px 20px;
+            min-height: 80vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .section.active {
+            display: flex;
+        }
+
+        .content-card {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            padding: 30px 40px;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            margin: 20px auto;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .birth-date {
+            font-size: 1.5rem;
+            font-weight: 300;
+            background: rgba(230, 57, 70, 0.3);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 30px;
+            border: 1px solid #e63946;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            margin: 10px 0;
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .photo-grid img {
+            max-width: 45%;
+            flex: 1 1 200px;
+        }
+
+        /* Кнопки внутри контента (дублируем стиль меню) */
+        .content-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .content-buttons button {
+            background: #e63946;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 10px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.4);
+        }
+
+        .content-buttons button:hover {
+            background: #c1121f;
+            transform: scale(1.05);
+        }
+
+        .gift-block {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 15px;
+            border: 1px solid #ffd700;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                gap: 10px;
+                padding: 10px;
+            }
+            nav button {
+                font-size: 1rem;
+                padding: 8px 20px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            .content-card {
+                padding: 20px;
+            }
+            .photo-grid img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Верхнее меню -->
+    <nav>
+        <button onclick="showSection('home')">Главная</button>
+        <button onclick="showSection('about')">О нём</button>
+        <button onclick="showSection('adult')">Голый камиль 18+</button>
+    </nav>
+
+    <!-- ====== ГЛАВНАЯ ====== -->
+    <div id="home" class="section active" style="background-image: url('https://i.pinimg.com/originals/3e/6f/b0/3e6fb030ee009eea1c2f3d5352735210.jpg');">
+        <div class="content-card">
+            <h1>Камиль Хайсаров</h1>
+            <div class="birth-date">Родился 28 декабря 2010 года</div>
+            <br />
+            <img src="https://mail.google.com/mail/u/0/?ui=2&ik=55330017af&attid=0.3&permmsgid=msg-a:r4115288921547943404&th=19f2c9dab875c986&view=att&disp=safe&realattid=19f2c9cee222caabe3f2&zw" alt="Фото Камиля" style="max-width: 400px; width: 100%;" />
+            
+            <p style="margin-top: 20px; font-size: 1.3rem; font-weight: 700;">Добро пожаловать на сайт!</p>
+
+            <!-- КНОПКИ ПОСЛЕ ПРИВЕТСТВИЯ (дублируем навигацию) -->
+            <div class="content-buttons">
+                <button onclick="showSection('home')">Главная</button>
+                <button onclick="showSection('about')">О нём</button>
+                <button onclick="showSection('adult')">Голый камиль 18+</button>
+            </div>
+
+            <!-- ПОДАРОК ОТ РЕНАЛЯ ГАФУРОВА -->
+            <div class="gift-block">
+                🎁 Подарок от Реналя Гафурова
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== СТРАНИЦА "О НЁМ" ====== -->
+    <div id="about" class="section" style="background-image: url('https://avatars.mds.yandex.net/i?id=43d65d9392fc75130bb395b6ca351586_l-4227442-images-thumbs&n=13');">
+        <div class="content-card">
+            <h2>О Камиле</h2>
+            <p>
+                Это доброжелательный парень, который любит играть в PUBG и очень сильно уважает окружающих. 
+                Особенно он уважает бабушку, с которой проживает в Буинске на Садовой в <strong>доме 12</strong>. 
+                Ему очень нравится его школа Лицей №2, особенно учитель Ильзира Рамисовна, тем что у неё большие смайлики 🍒.
+            </p>
+            <div class="photo-grid">
+                <img src="https://mail.google.com/mail/u/0/?ui=2&ik=55330017af&attid=0.5&permmsgid=msg-a:r4115288921547943404&th=19f2c9dab875c986&view=att&disp=safe&realattid=19f2c9cee22978c9e855&zw" alt="Фото 1" />
+                <img src="https://mail.google.com/mail/u/0/?ui=2&ik=55330017af&attid=0.2&permmsgid=msg-a:r4115288921547943404&th=19f2c9dab875c986&view=att&disp=safe&realattid=19f2c9cee221d91579b4&zw" alt="Фото 2" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== СТРАНИЦА "ГОЛЫЙ КАМИЛЬ 18+" ====== -->
+    <div id="adult" class="section" style="background-image: url('https://i.pinimg.com/736x/b3/d7/70/b3d7704e986167776289bf80f45083c9.jpg');">
+        <div class="content-card">
+            <h2>🔥 Голый камиль 18+</h2>
+            <p>
+                Камиль очень развратный и любит большие сиськи и многое другое, и есть та, кто ему нравится, 
+                а именно Амина Шамгунова, его любимая. Он не против ставить ей в любой подходящий момент.
+            </p>
+            <img src="https://mail.google.com/mail/u/0/?ui=2&ik=55330017af&attid=0.1&permmsgid=msg-a:r4115288921547943404&th=19f2c9dab875c986&view=att&disp=safe&realattid=19f2c9cee22cc634f656&zw" alt="Откровенное фото" style="max-width: 500px; width: 100%;" />
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(function(el) {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            var selected = document.getElementById(id);
+            selected.style.display = 'flex';
+            setTimeout(function() {
+                selected.classList.add('active');
+            }, 10);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+        });
+    </script>
+
+    <div style="position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: #ffb3b3; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; pointer-events: none;">
+        ⚠️ Фото из Gmail могут не отображаться без авторизации
+    </div>
+</body>
+</html>
